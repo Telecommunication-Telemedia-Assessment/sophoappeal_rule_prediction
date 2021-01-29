@@ -3,6 +3,7 @@
 the following code is partially based on https://keras.io/guides/transfer_learning/
 """
 import os
+import argparse
 import json
 import sys
 from pprint import pprint
