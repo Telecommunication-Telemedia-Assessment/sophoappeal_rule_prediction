@@ -25,90 +25,89 @@ config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 
 
-
 models = {
-    "Xception":{
+    "Xception": {
         "__init__": keras.applications.Xception,
         "preprocess": tf.keras.applications.xception.preprocess_input,
     },
-    "DenseNet201":{
+    "DenseNet201": {
         "__init__": keras.applications.DenseNet201,
         "preprocess": tf.keras.applications.densenet.preprocess_input,
     },
-    "VGG19":{
+    "VGG19": {
         "__init__": keras.applications.VGG19,
         "preprocess": tf.keras.applications.vgg19.preprocess_input,
     },
-    "VGG16":{
+    "VGG16": {
         "__init__": keras.applications.VGG16,
         "preprocess": tf.keras.applications.vgg16.preprocess_input,
     },
-    "MobileNetV2":{
+    "MobileNetV2": {
         "__init__": keras.applications.MobileNetV2,
         "preprocess": tf.keras.applications.mobilenet_v2.preprocess_input,
     },
-    "MobileNet":{
+    "MobileNet": {
         "__init__": keras.applications.MobileNet,
         "preprocess": tf.keras.applications.mobilenet.preprocess_input,
     },
-    "ResNet50":{
+    "ResNet50": {
         "__init__": keras.applications.ResNet50,
         "preprocess": tf.keras.applications.resnet.preprocess_input,
     },
-    "ResNet101":{
+    "ResNet101": {
         "__init__": keras.applications.ResNet101,
         "preprocess": tf.keras.applications.resnet.preprocess_input,
     },
-    "ResNet152":{
+    "ResNet152": {
         "__init__": keras.applications.ResNet152,
         "preprocess": tf.keras.applications.resnet.preprocess_input,
     },
-    "ResNet50V2":{
+    "ResNet50V2": {
         "__init__": keras.applications.ResNet50V2,
         "preprocess": tf.keras.applications.resnet_v2.preprocess_input,
     },
-    "ResNet101V2":{
+    "ResNet101V2": {
         "__init__": keras.applications.ResNet101V2,
         "preprocess": tf.keras.applications.resnet_v2.preprocess_input,
     },
-    "ResNet152V2":{
+    "ResNet152V2": {
         "__init__": keras.applications.ResNet152V2,
         "preprocess": tf.keras.applications.resnet_v2.preprocess_input,
     },
-    "InceptionV3":{
+    "InceptionV3": {
         "__init__": keras.applications.InceptionV3,
         "preprocess": tf.keras.applications.inception_v3.preprocess_input,
     },
-    "InceptionResNetV2":{
+    "InceptionResNetV2": {
         "__init__": keras.applications.InceptionResNetV2,
         "preprocess": tf.keras.applications.inception_resnet_v2.preprocess_input,
     },
-    "DenseNet121":{
+    "DenseNet121": {
         "__init__": keras.applications.DenseNet121,
         "preprocess": tf.keras.applications.densenet.preprocess_input,
     },
-    "DenseNet169":{
+    "DenseNet169": {
         "__init__": keras.applications.DenseNet169,
         "preprocess": tf.keras.applications.densenet.preprocess_input,
     },
-    "DenseNet201":{
+    "DenseNet201": {
         "__init__": keras.applications.DenseNet201,
         "preprocess": tf.keras.applications.densenet.preprocess_input,
     },
-    "NASNetMobile":{
+    "NASNetMobile": {
         "__init__": keras.applications.NASNetMobile,
         "preprocess": tf.keras.applications.nasnet.preprocess_input,
     },
-    "NASNetLarge":{
+    "NASNetLarge": {
         "__init__": keras.applications.NASNetLarge,
         "preprocess": tf.keras.applications.nasnet.preprocess_input,
-    }
+    },
 }
 
 
 def build_transfer_learning_model(modelname):
 
-    assert(modelname in models)
+    assert modelname in models
     # get model
     model = models[modelname]
 
@@ -131,10 +130,12 @@ def build_transfer_learning_model(modelname):
 
     x = base_model(x, training=False)
 
-    #x = keras.layers.GlobalAveragePooling2D()(x)
+    # x = keras.layers.GlobalAveragePooling2D()(x)
     x = keras.layers.Flatten()(x)
     x = keras.layers.Dropout(0.2)(x)  # Regularize with dropout
-    outputs = keras.layers.Dense(1, activation="sigmoid")(x) # based on https://www.dlology.com/blog/how-to-choose-last-layer-activation-and-loss-function/
+    outputs = keras.layers.Dense(1, activation="sigmoid")(
+        x
+    )  # based on https://www.dlology.com/blog/how-to-choose-last-layer-activation-and-loss-function/
 
     model = keras.Model(inputs, outputs, name="cust_" + modelname)
 
@@ -143,27 +144,23 @@ def build_transfer_learning_model(modelname):
 
 def check_model_creation():
     # check model access
-    print(
-        build_transfer_learning_model("DenseNet201").summary()
-    )
+    print(build_transfer_learning_model("DenseNet201").summary())
 
 
 def read_images(directory, subset, input_shape, batch_size=32):
     return tf.keras.preprocessing.image_dataset_from_directory(
         directory,
-        labels='inferred',
-        label_mode='int',
-        color_mode='rgb',
+        labels="inferred",
+        label_mode="int",
+        color_mode="rgb",
         batch_size=batch_size,
         image_size=input_shape[0:2],
         shuffle=True,
         seed=42,
         validation_split=0.1,  # 10% validation
         subset=subset,
-        interpolation='bilinear'
+        interpolation="bilinear",
     )
-
-
 
 
 def train_and_evaluate_model(modelname, training, validation, results_folder, models_folder, epochs=100):
@@ -176,19 +173,15 @@ def train_and_evaluate_model(modelname, training, validation, results_folder, mo
 
     checkpoint = ModelCheckpoint(
         os.path.join(models_folder, modelname + "_best_model.hdf5"),
-        monitor='val_loss',
+        monitor="val_loss",
         verbose=0,
         save_best_only=True,
-        mode='auto',
-        save_freq='epoch'
+        mode="auto",
+        save_freq="epoch",
     )
 
     res = model.fit(
-        training,
-        epochs=epochs,
-        validation_data=validation,
-        verbose=0,
-        callbacks=[TqdmCallback(verbose=2), checkpoint]
+        training, epochs=epochs, validation_data=validation, verbose=0, callbacks=[TqdmCallback(verbose=2), checkpoint]
     )
 
     y_pred = [float(x) for x in res.model.predict(validation).flatten()]
@@ -210,9 +203,9 @@ def train_and_evaluate_model(modelname, training, validation, results_folder, mo
 
 def main(_):
     # argument parsing
-    parser = argparse.ArgumentParser(description='dnn evaluation',
-                                     epilog="stg7 2021",
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description="dnn evaluation", epilog="stg7 2021", formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
     parser.add_argument("--data", default="data/rule_of_thirds/", type=str, help="data to be used")
     parser.add_argument("--models_folder", default="models", type=str, help="folder to store best models")
     parser.add_argument("--results_folder", default="results", type=str, help="folder to store results of best models")
@@ -220,7 +213,7 @@ def main(_):
     a = vars(parser.parse_args())
 
     # check if gpu is accessible
-    print(tf.config.list_physical_devices('GPU'))
+    print(tf.config.list_physical_devices("GPU"))
 
     os.makedirs(a["storage_folder"], exist_ok=True)
 
@@ -236,19 +229,10 @@ def main(_):
     os.makedirs(a["results_folder"], exist_ok=True)
     os.makedirs(a["models_folder"], exist_ok=True)
 
-
     for modelname in models:
         print(modelname)
-        train_and_evaluate_model(
-            modelname,
-            training,
-            validation,
-            a["results_folder"],
-            a["models_folder"],
-            epochs=1
-        )
+        train_and_evaluate_model(modelname, training, validation, a["results_folder"], a["models_folder"], epochs=1)
         break
-
 
 
 if __name__ == "__main__":
