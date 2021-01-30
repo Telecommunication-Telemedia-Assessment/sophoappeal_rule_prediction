@@ -7,5 +7,5 @@ In the following papers:
 
 approaches to detect simplicity and rule of thirds for images are proposed, both algorithms use saliency models to estimate the final classification decision.
 
-In this repo, the published labeled dataset is used to re-train DNNs for the same tasks.
+In this repo, the published labeled datasets are used to re-train DNNs for the same tasks.
 
