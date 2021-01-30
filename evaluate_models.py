@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
 the following code is partially based on https://keras.io/guides/transfer_learning/
+
+code style: black -l 120 <filename>
 """
 import os
 import argparse
@@ -184,6 +186,7 @@ def train_and_evaluate_model(modelname, training, validation, results_folder, mo
         training, epochs=epochs, validation_data=validation, verbose=0, callbacks=[TqdmCallback(verbose=2), checkpoint]
     )
 
+    print("run prediction")
     y_pred = [float(x) for x in res.model.predict(validation).flatten()]
 
     y_truth = []
@@ -191,6 +194,7 @@ def train_and_evaluate_model(modelname, training, validation, results_folder, mo
         y_truth.extend(l.numpy())
     y_truth = [int(x) for x in np.array(y_truth).flatten()]
 
+    print("save results")
     result = res.history
     result["model"] = modelname
     result["pred"] = y_pred
@@ -215,16 +219,15 @@ def main(_):
     # check if gpu is accessible
     print(tf.config.list_physical_devices("GPU"))
 
-    os.makedirs(a["storage_folder"], exist_ok=True)
-
-    directory = "data/rule_of_thirds/"
     batch_size = 32
     input_shape = (224, 224, 3)
 
     training = read_images(a["data"], "training", input_shape, batch_size)
 
     validation = read_images(a["data"], "validation", input_shape, batch_size)
-    print(f"training and validation samples: {len(training)},{len(validation)}")
+    print(f"training and validation batches: {len(training)},{len(validation)}")
+    print(f"batch size: {batch_size}")
+    print(f"input_shape: {input_shape}")
 
     os.makedirs(a["results_folder"], exist_ok=True)
     os.makedirs(a["models_folder"], exist_ok=True)
