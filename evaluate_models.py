@@ -100,10 +100,12 @@ models = {
         "__init__": keras.applications.NASNetMobile,
         "preprocess": tf.keras.applications.nasnet.preprocess_input,
     },
-    "NASNetLarge": {
-        "__init__": keras.applications.NASNetLarge,
-        "preprocess": tf.keras.applications.nasnet.preprocess_input,
-    },
+
+    # NASNetLarge excluded because it requires a fixed input
+    #"NASNetLarge": {
+    #    "__init__": keras.applications.NASNetLarge,
+    #    "preprocess": tf.keras.applications.nasnet.preprocess_input,
+    #},
 }
 
 
@@ -149,7 +151,7 @@ def check_model_creation():
     print(build_transfer_learning_model("DenseNet201").summary())
 
 
-def read_images(directory, subset, input_shape, batch_size=32):
+def read_images(directory, subset, input_shape, batch_size=32, split=0.1):
     return tf.keras.preprocessing.image_dataset_from_directory(
         directory,
         labels="inferred",
@@ -159,7 +161,7 @@ def read_images(directory, subset, input_shape, batch_size=32):
         image_size=input_shape[0:2],
         shuffle=True,
         seed=42,
-        validation_split=0.1,  # 10% validation
+        validation_split=split,  # 10% validation
         subset=subset,
         interpolation="bilinear",
     )
@@ -190,8 +192,8 @@ def train_and_evaluate_model(modelname, training, validation, results_folder, mo
     y_pred = [float(x) for x in res.model.predict(validation).flatten()]
 
     y_truth = []
-    for y, l in validation:
-        y_truth.extend(l.numpy())
+    for _, labels in validation:
+        y_truth.extend(labels.numpy())
     y_truth = [int(x) for x in np.array(y_truth).flatten()]
 
     print("save results")
@@ -213,6 +215,7 @@ def main(_):
     parser.add_argument("--data", default="data/rule_of_thirds/", type=str, help="data to be used")
     parser.add_argument("--models_folder", default="models", type=str, help="folder to store best models")
     parser.add_argument("--results_folder", default="results", type=str, help="folder to store results of best models")
+    parser.add_argument("--epochs", default=200, type=int, help="number of epochs per model")
 
     a = vars(parser.parse_args())
 
@@ -234,8 +237,7 @@ def main(_):
 
     for modelname in models:
         print(modelname)
-        train_and_evaluate_model(modelname, training, validation, a["results_folder"], a["models_folder"], epochs=1)
-        break
+        train_and_evaluate_model(modelname, training, validation, a["results_folder"], a["models_folder"], epochs=a["epochs"])
 
 
 if __name__ == "__main__":
