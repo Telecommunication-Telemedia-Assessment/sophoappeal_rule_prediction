@@ -17,6 +17,8 @@ import tensorflow as tf
 import keras
 from tqdm.keras import TqdmCallback
 from keras.callbacks import ModelCheckpoint
+from keras.preprocessing.image import load_img
+from keras.preprocessing.image import img_to_array
 
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
@@ -167,7 +169,7 @@ def read_images(directory, subset, input_shape, batch_size=32, split=0.1):
     )
 
 
-def train_and_evaluate_model(modelname, training, validation, results_folder, models_folder, epochs=100):
+def train_and_evaluate_model(modelname, input_shape, training, validation, results_folder, models_folder, epochs=100):
     model = build_transfer_learning_model(modelname)
     model.compile(
         optimizer=keras.optimizers.Adam(),
@@ -189,19 +191,35 @@ def train_and_evaluate_model(modelname, training, validation, results_folder, mo
     )
 
     print("run prediction")
-    y_pred = [float(x) for x in res.model.predict(validation).flatten()]
 
+    def get_label(x):
+        for class_name in training.class_names:
+            if class_name in x:
+                return class_name
+
+    y_pred = []
     y_truth = []
-    for _, labels in validation:
-        y_truth.extend(labels.numpy())
-    y_truth = [int(x) for x in np.array(y_truth).flatten()]
+    validation_files = []
+    for image_filename in sorted(validation.file_paths):
+        image = img_to_array(load_img(
+            image_filename,
+            color_mode='rgb',
+            target_size=input_shape,
+            interpolation='bilinear'
+        ))
+        y_truth.append(get_label(image_filename))
+        y_pred.append(res.model.predict(np.array([image])))
+        validation_files.append(image_filename)
 
+    y_truth = [training.class_names.index(x) for x in np.array(y_truth).flatten()]
+    y_pred = [float(x) for x in np.array(y_pred).flatten()]
     print("save results")
     result = res.history
     result["model"] = modelname
+    result["classnames"] = training.class_names
     result["pred"] = y_pred
     result["truth"] = y_truth
-    result["validation_files"] = validation.file_paths
+    result["validation_files"] = validation_files
 
     with open(os.path.join(results_folder, modelname + ".json"), "w") as xfp:
         json.dump(result, xfp, sort_keys=True, indent=4)
@@ -237,7 +255,7 @@ def main(_):
 
     for modelname in models:
         print(modelname)
-        train_and_evaluate_model(modelname, training, validation, a["results_folder"], a["models_folder"], epochs=a["epochs"])
+        train_and_evaluate_model(modelname, input_shape, training, validation, a["results_folder"], a["models_folder"], epochs=a["epochs"])
 
 
 if __name__ == "__main__":
