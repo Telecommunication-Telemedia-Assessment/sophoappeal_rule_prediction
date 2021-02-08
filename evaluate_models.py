@@ -34,10 +34,6 @@ models = {
         "__init__": keras.applications.Xception,
         "preprocess": tf.keras.applications.xception.preprocess_input,
     },
-    "DenseNet201": {
-        "__init__": keras.applications.DenseNet201,
-        "preprocess": tf.keras.applications.densenet.preprocess_input,
-    },
     "VGG19": {
         "__init__": keras.applications.VGG19,
         "preprocess": tf.keras.applications.vgg19.preprocess_input,
