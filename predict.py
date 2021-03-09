@@ -23,17 +23,17 @@ from keras.preprocessing.image import img_to_array
 from evaluate_models import build_transfer_learning_model
 
 
-def predict(image_batch):
-    for image_filename in sorted(validation.file_paths):
-        image = img_to_array(load_img(
-            image_filename,
-            color_mode='rgb',
-            target_size=input_shape,
-            interpolation='bilinear'
-        ))
-        y_truth.append(get_label(image_filename))
-        y_pred.append(res.model.predict(np.array([image])))
-        validation_files.append(image_filename)
+# def predict(image_batch):
+#     for image_filename in sorted(validation.file_paths):
+#         image = img_to_array(load_img(
+#             image_filename,
+#             color_mode='rgb',
+#             target_size=input_shape,
+#             interpolation='bilinear'
+#         ))
+#         y_truth.append(get_label(image_filename))
+#         y_pred.append(res.model.predict(np.array([image])))
+#         validation_files.append(image_filename)
 
 
 def chunks(lst, n):
