@@ -47,6 +47,13 @@ In one of the evaluation experiment the AVT Image DB has been used (see [AVT Ima
 ## Evaluation
 The Jupyter notebooks for the evaluation figures and tables of the paper can be found in the folder `evaluation`.
 
+
+## Developers
+* [Steve Göring](https://github.com/stg7)
+
+If you like this software you can also [donate me a :coffee:](https://ko-fi.com/binarys3v3n).
+
+
 ## Acknowledgments
 If you use this software, data or models in your research, please include a link to the repository and reference the following paper.
 
