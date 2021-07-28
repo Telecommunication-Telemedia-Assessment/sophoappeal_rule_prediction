@@ -1,13 +1,15 @@
-# photo rule prediction
+# Photo Rules
 
 The following repository consists code and data to the paper 
 
-""
+
+    Göring et al. 2021: "Rule of Thirds and Simplicity for Image Aesthetics using Deep Neural Networks"
+
 
 The overall idea is that e.g. in the following papers:
 
-* Mai et al. 2012 "Detecting Rule of Simplicity from Photos" and
-* Mai et al. 2011 "Rule of Thirds Detection from Photograph"
+* Mai et al. 2012: "Detecting Rule of Simplicity from Photos" and
+* Mai et al. 2011: "Rule of Thirds Detection from Photograph"
 
 approaches to detect simplicity and rule of thirds for images are proposed, both algorithms use saliency models to estimate the final classification decision.
 
@@ -23,7 +25,7 @@ The included script `download.sh` will automatically add the data and models to 
 
 Afterwards run: `pip3 install -r requirements.txt` to install dependencies, you may create a python virtual environment before and activate it.
 
-
+Before you can use the models, you need to run `./download.sh`, you may remove the download for the images (they are only required for the training part of the experiment).
 
 
 # Usage
@@ -37,9 +39,12 @@ Both training steps are not required if you just want to use the described model
 * `predict.py` and
 * `predict_all.sh` that demonstrates for the best two models and for both rules the usage.
 
+# Image Annotations
+In one of the evaluation experiment the AVT Image DB has been used (see [AVT Image DB](https://github.com/Telecommunication-Telemedia-Assessment/image_compression)), annotations regarding image simplicity and rule of thirds can be found in the folder [evaluation/data/avt_image_db/annotations/](evaluation/data/avt_image_db/annotations/).
+
 
 ## Acknowledgments
-If you use this software in your research, please include a link to the repository and reference the following paper.
+If you use this software, data or models in your research, please include a link to the repository and reference the following paper.
 
 ```
 @inproceedings{goering2021rules,
