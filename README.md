@@ -1,6 +1,6 @@
 # Photo Rules
 
-The following repository consists code and data to the paper 
+The following repository consists code and data to reproduce the paper 
 
 
     Göring et al. 2021: "Rule of Thirds and Simplicity for Image Aesthetics using Deep Neural Networks"
