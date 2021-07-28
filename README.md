@@ -24,11 +24,12 @@ The included script `download.sh` will automatically add the data and models to 
 * python3, pip3
 
 Afterwards run: `pip3 install -r requirements.txt` to install dependencies, you may create a python virtual environment before and activate it.
+The **virtual environment is highly recommended**, because the tensorflow and keras versions changed and some incompatibilities using newer versions may occur.
 
 Before you can use the models, you need to run `./download.sh`, you may remove the download for the images (they are only required for the training part of the experiment).
 
 
-# Usage
+## Usage
 
 * `evaluate_models.py` generic script to train such DNN models
 * `rule_of_thirds.sh` training script for rule of thirds prediction
@@ -42,6 +43,9 @@ Both training steps are not required if you just want to use the described model
 # Image Annotations
 In one of the evaluation experiment the AVT Image DB has been used (see [AVT Image DB](https://github.com/Telecommunication-Telemedia-Assessment/image_compression)), annotations regarding image simplicity and rule of thirds can be found in the folder [evaluation/data/avt_image_db/annotations/](evaluation/data/avt_image_db/annotations/).
 
+
+## Evaluation
+The Jupyter notebooks for the evaluation figures and tables of the paper can be found in the folder `evaluation`.
 
 ## Acknowledgments
 If you use this software, data or models in your research, please include a link to the repository and reference the following paper.
