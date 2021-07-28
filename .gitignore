@@ -1,1 +1,10 @@
 .ipynb_checkpoints
+__pycache__/
+unpack/
+models.tar.lzma
+_data/
+all_data/
+data/
+models/
+upload/
+venv/
