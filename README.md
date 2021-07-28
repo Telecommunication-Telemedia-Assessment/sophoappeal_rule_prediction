@@ -41,7 +41,7 @@ Both training steps are not required if you just want to use the described model
 * `predict_all.sh` that demonstrates for the best two models and for both rules the usage.
 
 # Image Annotations
-In one of the evaluation experiment the AVT Image DB has been used (see [AVT Image DB](https://github.com/Telecommunication-Telemedia-Assessment/image_compression)), annotations regarding image simplicity and rule of thirds can be found in the folder [evaluation/data/avt_image_db/annotations/](evaluation/data/avt_image_db/annotations/).
+In one of the evaluation experiments the [AVT Image DB](https://github.com/Telecommunication-Telemedia-Assessment/image_compression) has been used, annotations regarding image simplicity and rule of thirds for this dataset can be found in the folder [evaluation/data/avt_image_db/annotations/](evaluation/data/avt_image_db/annotations/).
 
 
 ## Evaluation
