@@ -21,7 +21,7 @@ The included script `download.sh` will automatically add the data and models to 
 # Requirements 
 The software is only tested on **Ubuntu 20.04** to run it you need to install:
 
-* python3, pip3
+* python3, python3-pip, python3-venv
 
 You may create a python virtual environment and activate it with the following commands.
 ```bash
