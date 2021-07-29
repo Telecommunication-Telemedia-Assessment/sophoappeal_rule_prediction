@@ -1,4 +1,4 @@
-# Photo Rules
+# Rule of Thirds and Simplicity Prediction for Photos
 
 The following repository consists code and data to reproduce the paper 
 
