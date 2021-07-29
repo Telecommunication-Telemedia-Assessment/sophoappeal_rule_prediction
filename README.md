@@ -19,8 +19,8 @@ The overall data and models can be found here: [models and data](https://zenodo.
 The included script `download.sh` will automatically add the data and models to this repository.
 
 # Requirements 
+The software is only tested on **Ubuntu 20.04** to run it you need to install:
 
-* the software is only tested on Ubuntu 20.04
 * python3, pip3
 
 You may create a python virtual environment and activate it with the following commands.
@@ -33,7 +33,6 @@ Afterwards run: `pip3 install -r requirements.txt` to install all dependencies.
 The **virtual environment is highly recommended**, because the tensorflow and keras versions changed and some incompatibilities using newer versions may occur.
 
 Before you can use the models, you need to run `./download.sh`, you may remove the download for the images (they are only required for the training part of the experiment).
-
 
 ## Usage
 
@@ -52,6 +51,7 @@ In one of the evaluation experiments the [AVT Image DB](https://github.com/Telec
 
 ## Evaluation
 The Jupyter notebooks for the evaluation figures and tables of the paper can be found in the folder `evaluation`.
+To run these notebooks, you need jupyter and some more dependencies installed, e.g. scikit-learn, scipy, pandas, numpy.
 
 
 ## Developers
