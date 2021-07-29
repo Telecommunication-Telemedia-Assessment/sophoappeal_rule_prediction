@@ -1,6 +1,6 @@
 # Rule of Thirds and Simplicity Prediction for Photos
 
-The following repository consists code and data to reproduce the paper 
+The following repository consists of code and data to reproduce the paper 
 
 
     Göring et al. 2021: "Rule of Thirds and Simplicity for Image Aesthetics using Deep Neural Networks"
@@ -13,7 +13,7 @@ The overall idea is that e.g. in the following papers:
 
 approaches to detect simplicity and rule of thirds for images are proposed, both algorithms use saliency models to estimate the final classification decision.
 
-In this repo, the published labeled datasets are used to re-train state of the art DNNs for the same tasks.
+In this repo, the published labeled datasets are used to re-train state-of-the-art DNNs for the same tasks.
 
 The overall data and models can be found here: [models and data](https://zenodo.org/record/5140038#.YQAd_HUzYW0).
 The included script `download.sh` will automatically add the data and models to this repository.
@@ -28,7 +28,7 @@ You may create a python virtual environment and activate it with the following c
 python3 -m venv env
 source env/bin/activate
 ```
-Afterwards run: `pip3 install -r requirements.txt` to install all dependencies.
+Afterward run: `pip3 install -r requirements.txt` to install all dependencies.
 
 The **virtual environment is highly recommended**, because the tensorflow and keras versions changed and some incompatibilities using newer versions may occur.
 
@@ -37,10 +37,10 @@ Before you can use the models, you need to run `./download.sh`, you may remove t
 ## Usage
 
 * `evaluate_models.py` generic script to train such DNN models
-* `rule_of_thirds.sh` training script for rule of thirds prediction
+* `rule_of_thirds.sh` training script for the rule of thirds prediction
 * `simplicity.sh` training script for image simplicity
 
-Both training steps are not required if you just want to use the described models, for this you can use 
+Both training steps are not required if you just want to use the described models, for this, you can use 
 
 * `predict.py` and
 * `predict_all.sh` that demonstrates for the best two models and for both rules the usage.
@@ -61,7 +61,7 @@ If you like this software you can also [donate me a :coffee:](https://ko-fi.com/
 
 
 ## Acknowledgments
-If you use this software, data or models in your research, please include a link to the repository and reference the following paper.
+If you use this software, data, or models in your research, please include a link to the repository and reference the following paper.
 
 ```
 @inproceedings{goering2021rules,
@@ -76,7 +76,4 @@ If you use this software, data or models in your research, please include a link
 
 ## License
 GNU General Public License v3. See [LICENSE](LICENSE) file in this repository.
-
-
-
 
