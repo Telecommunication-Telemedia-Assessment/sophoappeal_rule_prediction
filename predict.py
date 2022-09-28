@@ -5,9 +5,7 @@ import json
 import sys
 import math
 import glob
-from pprint import pprint
 
-import pandas as pd
 import numpy as np
 
 # deactivate GPU
@@ -15,9 +13,9 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 
 import tensorflow as tf
-import keras
-from keras.preprocessing.image import load_img
-from keras.preprocessing.image import img_to_array
+import tensorflow.keras as keras
+from tensorflow.keras.preprocessing.image import load_img
+from tensorflow.keras.preprocessing.image import img_to_array
 
 
 from evaluate_models import build_transfer_learning_model

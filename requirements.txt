@@ -1,5 +1,5 @@
 tqdm
 pillow
-keras==2.4.3
-tensorflow==2.4.1
+tensorflow==2.10.0
 pandas
+numpy
