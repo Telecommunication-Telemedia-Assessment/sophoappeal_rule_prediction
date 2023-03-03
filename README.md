@@ -63,7 +63,7 @@ If you like this software you can also [donate me a :coffee:](https://ko-fi.com/
 ## Acknowledgments
 If you use this software, data, or models in your research, please include a link to the repository and reference the following paper.
 
-```
+```bibtex
 @inproceedings{goering2021rules,
   author={Steve {G{\"o}ring} and Alexander Raake},
   title="Rule of Thirds and Simplicity for Image Aesthetics using Deep Neural Networks",
